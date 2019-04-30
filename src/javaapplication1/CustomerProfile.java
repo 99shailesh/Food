@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package javaapplication1;
-
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author 7R-0
@@ -14,10 +16,32 @@ public class CustomerProfile extends javax.swing.JFrame {
     /**
      * Creates new form CustomerProfile
      */
+    Connection con;
     public CustomerProfile() {
         initComponents();
+        con=Common.getdbconnect();
+        updateDetails();
     }
+ void updateDetails(){
+       ResultSet resultSet;
 
+        try {
+                 
+        Statement statement = con.createStatement();
+     
+        resultSet = statement.executeQuery("SELECT * FROM customer WHERE Phone='"+Common.customerphone+"';");
+        resultSet.first();
+        etPhone.setText(resultSet.getString(1).toString());
+        etName.setText(resultSet.getString(2).toString());
+        etPassword.setText(resultSet.getString(3).toString());
+        etAddress.setText(resultSet.getString(4).toString());
+        etlMail.setText(resultSet.getString(5).toString());
+        
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(HotelLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+ }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

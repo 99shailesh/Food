@@ -4,7 +4,12 @@
  * and open the template in the editor.
  */
 package javaapplication1;
-
+import java.sql.*;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 /**
  *
  * @author 7R-0
@@ -14,10 +19,29 @@ public class ViewFood extends javax.swing.JFrame {
     /**
      * Creates new form ViewFood
      */
+    Connection con;
     public ViewFood() {
         initComponents();
+        con=Common.getdbconnect();
+          updateTb();
     }
+void updateTb(){
+       ResultSet resultSet;
 
+        try {
+                 
+        Statement statement = con.createStatement();
+       String st=" SELECT hotel_food.hotel,food.Food_id,food.Food_name,food.foodType,food.Food_rating,food.Price,food.discount "
+           + "FROM food,hotel_food WHERE food.Food_id=hotel_food.foodid;";
+      
+        
+        resultSet = statement.executeQuery(st);
+        Common.setTable(jTable1, resultSet);
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(HotelLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -64,7 +88,7 @@ public class ViewFood extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(72, 72, 72)
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 702, Short.MAX_VALUE)
                 .addGap(100, 100, 100))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -92,6 +116,8 @@ public class ViewFood extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:.
+        
+        
          setVisible(false);
         new CustomerDashBoard().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed

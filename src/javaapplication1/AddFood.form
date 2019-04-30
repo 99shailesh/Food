@@ -34,13 +34,13 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
-                              <Component id="tfHotelContact2" min="-2" pref="282" max="-2" attributes="0"/>
+                              <Component id="tfFoodDiscount" min="-2" pref="282" max="-2" attributes="0"/>
                           </Group>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="jLabel2" min="-2" pref="77" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="tfHotelId" min="-2" pref="289" max="-2" attributes="0"/>
+                                  <Component id="tfFoodId" min="-2" pref="289" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Group type="103" groupAlignment="1" max="-2" attributes="0">
@@ -50,15 +50,15 @@
                                   </Group>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="tfHotelContact" alignment="0" pref="289" max="32767" attributes="0"/>
-                                      <Component id="tfHotelPassword" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="tfHotelname" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="tfFoodRate" alignment="0" pref="289" max="32767" attributes="0"/>
+                                      <Component id="tfFoodtype" alignment="0" max="32767" attributes="0"/>
+                                      <Component id="tfFoodname" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
                                   <Component id="jLabel7" min="-2" pref="78" max="-2" attributes="0"/>
                                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="tfHotelContact1" min="-2" pref="288" max="-2" attributes="0"/>
+                                  <Component id="tfFoodPrice" min="-2" pref="288" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -77,32 +77,32 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel2" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                  <Component id="tfHotelId" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfFoodId" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel3" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                  <Component id="tfHotelname" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfFoodname" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel4" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                  <Component id="tfHotelPassword" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfFoodtype" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel6" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                  <Component id="tfHotelContact" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfFoodRate" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel7" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                  <Component id="tfHotelContact1" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfFoodPrice" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel8" alignment="3" min="-2" pref="25" max="-2" attributes="0"/>
-                  <Component id="tfHotelContact2" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfFoodDiscount" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
               <Component id="btnegister" min="-2" pref="44" max="-2" attributes="0"/>
@@ -129,7 +129,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnegisterActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JTextField" name="tfHotelId">
+    <Component class="javax.swing.JTextField" name="tfFoodId">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
@@ -141,30 +141,30 @@
         <Property name="text" type="java.lang.String" value="Food Name:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="tfHotelname">
+    <Component class="javax.swing.JTextField" name="tfFoodname">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
         <Property name="text" type="java.lang.String" value="Food Type:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="tfHotelPassword">
+    <Component class="javax.swing.JTextField" name="tfFoodtype">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel6">
       <Properties>
         <Property name="text" type="java.lang.String" value="Food Rating:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="tfHotelContact">
+    <Component class="javax.swing.JTextField" name="tfFoodRate">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel7">
       <Properties>
         <Property name="text" type="java.lang.String" value="Food Price:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="tfHotelContact1">
+    <Component class="javax.swing.JTextField" name="tfFoodPrice">
     </Component>
-    <Component class="javax.swing.JTextField" name="tfHotelContact2">
+    <Component class="javax.swing.JTextField" name="tfFoodDiscount">
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel8">
       <Properties>

@@ -4,7 +4,12 @@
  * and open the template in the editor.
  */
 package javaapplication1;
-
+import java.sql.*;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 /**
  *
  * @author 7R-0
@@ -14,8 +19,10 @@ public class CustomerRegistration extends javax.swing.JFrame {
     /**
      * Creates new form CustomerRegistration
      */
+    Connection con;
     public CustomerRegistration() {
         initComponents();
+          con=Common.getdbconnect();
     }
 
     /**
@@ -40,6 +47,7 @@ public class CustomerRegistration extends javax.swing.JFrame {
         etlMail = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,20 +76,27 @@ public class CustomerRegistration extends javax.swing.JFrame {
 
         jLabel9.setText("Mail:");
 
+        jButton1.setText("Login here");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnegister, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnegister, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(etPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -93,7 +108,8 @@ public class CustomerRegistration extends javax.swing.JFrame {
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
                             .addComponent(etlMail)
                             .addComponent(etPassword)
-                            .addComponent(etName))))
+                            .addComponent(etName)))
+                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -123,7 +139,9 @@ public class CustomerRegistration extends javax.swing.JFrame {
                     .addComponent(etlMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnegister, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         pack();
@@ -131,9 +149,70 @@ public class CustomerRegistration extends javax.swing.JFrame {
 
     private void btnegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnegisterActionPerformed
         // TODO add your handling code here:
-        setVisible(false);
+        
+        
+        
+         
+    String cAddress= etAddress.getText().toString();
+    String cname= etName.getText().toString();
+    String cPass= etPassword.getText().toString();
+    
+    String cPhone= etPhone.getText().toString();
+    String cMail= etlMail.getText().toString();
+ 
+        
+
+        try {
+        if(!(cAddress.isEmpty()||cname.isEmpty()||cPass.isEmpty()||cPhone.isEmpty()||cMail.isEmpty()))
+        {         
+            PreparedStatement stmt=con.prepareStatement("insert into customer values(?,?,?,?,?)");  
+            stmt.setString(1,cPhone);
+            stmt.setString(2,cname);
+            stmt.setString(3,cPass);
+            stmt.setString(4,cAddress);
+            stmt.setString(5,cMail);
+    
+            int re=stmt.executeUpdate();  
+            if(re==1)
+            {    JOptionPane.showMessageDialog(null, "Registration Successfully Done!","Registratoin", JOptionPane.INFORMATION_MESSAGE);
+              con.close();    
+                     setVisible(false);
         new CustomerLogin().setVisible(true);
+            }
+            else
+            {
+            JOptionPane.showMessageDialog(null, "Please try again..","Registratoin", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+        }
+        else{
+        JOptionPane.showMessageDialog(null, "Please fill all details","Registratoin", JOptionPane.INFORMATION_MESSAGE);
+                }
+        } catch (SQLException ex) {
+            Logger.getLogger(HotelLogin.class.getName()).log(Level.SEVERE, null, ex);
+                  if(ex.getErrorCode() == 1062 ){
+        //duplicate primary key  
+        JOptionPane.showMessageDialog(null, "Id exist.\nEnter other id","Staff Registratoin", JOptionPane.INFORMATION_MESSAGE);
+
+             }
+             
+
+        }
+        
+
     }//GEN-LAST:event_btnegisterActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            // TODO add your handling code here:
+
+            con.close();
+            setVisible(false);
+              new CustomerLogin().setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(HotelRegistration.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -177,6 +256,7 @@ public class CustomerRegistration extends javax.swing.JFrame {
     private javax.swing.JTextField etPassword;
     private javax.swing.JTextField etPhone;
     private javax.swing.JTextField etlMail;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

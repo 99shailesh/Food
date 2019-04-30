@@ -5,6 +5,12 @@
  */
 package javaapplication1;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author 7R-0
@@ -14,8 +20,10 @@ public class CustomerLogin extends javax.swing.JFrame {
     /**
      * Creates new form CustomerLogin
      */
+    Connection con;
     public CustomerLogin() {
         initComponents();
+        con=Common.getdbconnect();
     }
 
     /**
@@ -134,11 +142,37 @@ public class CustomerLogin extends javax.swing.JFrame {
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         // TODO add your handling code here:
+        String cphone=etCustomerPhone.getText().toString();
+        String cpassword=etCustomerPassword.getText().toString();
+        String realpasswrd="";
+        ResultSet resultSet;
 
-        errormsg.setText("Wrong Password or ID");
+        try {
+                 
+        Statement statement = con.createStatement();
+    
+        resultSet = statement.executeQuery("SELECT * FROM customer WHERE Phone='"+cphone+"';");
+        if(resultSet.next())
+        {   resultSet.first();
+            realpasswrd=resultSet.getString("CPassword");
+        }
+        else{   errormsg.setText("Wrong Password or ID");
+                }          
+        if(realpasswrd.equals(cpassword)){
+            Common.customerphone=etCustomerPhone.getText().toString();
+            Common.customername=resultSet.getString("CName").toString();
+            con.close();
+            setVisible(false);
+            new CustomerDashBoard().setVisible(true);
+         }    
+        else    
+            errormsg.setText("Wrong Password or ID");
+        } catch (SQLException ex) {
+            Logger.getLogger(HotelLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+   
        // Common.customername=etCustomerPhone.getText().toString();
-        setVisible(false);
-        new CustomerDashBoard().setVisible(true);
+    
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnHotelLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHotelLoginActionPerformed

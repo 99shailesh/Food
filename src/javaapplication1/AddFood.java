@@ -5,6 +5,12 @@
  */
 package javaapplication1;
 
+import java.sql.PreparedStatement;
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author 7R-0
@@ -14,8 +20,10 @@ public class AddFood extends javax.swing.JFrame {
     /**
      * Creates new form AddFood
      */
+    Connection con;
     public AddFood() {
         initComponents();
+        con=Common.getdbconnect();
     }
 
     /**
@@ -29,17 +37,17 @@ public class AddFood extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         btnegister = new javax.swing.JButton();
-        tfHotelId = new javax.swing.JTextField();
+        tfFoodId = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        tfHotelname = new javax.swing.JTextField();
+        tfFoodname = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        tfHotelPassword = new javax.swing.JTextField();
+        tfFoodtype = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        tfHotelContact = new javax.swing.JTextField();
+        tfFoodRate = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
-        tfHotelContact1 = new javax.swing.JTextField();
-        tfHotelContact2 = new javax.swing.JTextField();
+        tfFoodPrice = new javax.swing.JTextField();
+        tfFoodDiscount = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -82,12 +90,12 @@ public class AddFood extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel8)
                                 .addGap(2, 2, 2)
-                                .addComponent(tfHotelContact2, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(tfFoodDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
-                                    .addComponent(tfHotelId, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(tfFoodId, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -95,13 +103,13 @@ public class AddFood extends javax.swing.JFrame {
                                         .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGap(18, 18, 18)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(tfHotelContact, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
-                                        .addComponent(tfHotelPassword)
-                                        .addComponent(tfHotelname)))
+                                        .addComponent(tfFoodRate, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
+                                        .addComponent(tfFoodtype)
+                                        .addComponent(tfFoodname)))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGap(18, 18, 18)
-                                    .addComponent(tfHotelContact1, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(tfFoodPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 288, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 4, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -113,27 +121,27 @@ public class AddFood extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfHotelId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfFoodId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfHotelname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfFoodname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfHotelPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfFoodtype, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfHotelContact, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfFoodRate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfHotelContact1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfFoodPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tfHotelContact2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tfFoodDiscount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnegister, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -143,9 +151,60 @@ public class AddFood extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnegisterActionPerformed
+
+    String fDis=tfFoodDiscount.getText().toString();
+    String fId= tfFoodId.getText().toString();
+    String fPrice= tfFoodPrice.getText().toString();
+    String fRate= tfFoodRate.getText().toString();
+    String fName=tfFoodname.getText().toString();
+    String fType=tfFoodtype.getText().toString();
+        
+
+        try {
+        if(!(fDis.isEmpty()||fId.isEmpty()||fName.isEmpty()||fRate.isEmpty()||fType.isEmpty()||fPrice.isEmpty()))
+        {         
+            PreparedStatement stmt=con.prepareStatement("insert into food values(?,?,?,?,?,?)");  
+            stmt.setString(1,fId);
+            stmt.setString(2,fName);
+            stmt.setString(3,fType);
+            stmt.setInt(4,Integer.parseInt(fRate));
+            stmt.setInt(5,Integer.parseInt(fPrice));
+            stmt.setInt(6,Integer.parseInt(fDis));
+            int re=stmt.executeUpdate();  
+            
+            PreparedStatement stmt1=con.prepareStatement("insert into hotel_food values(?,?)");  
+            stmt1.setString(1,fId);
+            stmt1.setString(2,Common.hotelid);
+            int re1=stmt1.executeUpdate();  
+            if(re==1&& re1==1)
+            {   JOptionPane.showMessageDialog(null, "Food Added Successfully!","Food", JOptionPane.INFORMATION_MESSAGE);
+                con.close();
+              setVisible(false);
+                  new HotelDashboard().setVisible(true);
+            }
+            else
+            {
+            JOptionPane.showMessageDialog(null, "Please try again..","Food", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+        }
+        else{
+        JOptionPane.showMessageDialog(null, "Please fill all details","Food ", JOptionPane.INFORMATION_MESSAGE);
+                }
+        } catch (SQLException ex) {
+            Logger.getLogger(HotelLogin.class.getName()).log(Level.SEVERE, null, ex);
+           
+            if(ex.getErrorCode() == 1062 ){
+        //duplicate primary key  
+        JOptionPane.showMessageDialog(null, "id exist.\nEnter other id","Food", JOptionPane.INFORMATION_MESSAGE);
+
+             }
+           
+        }
+        
+
         // TODO add your handling code here:
-        setVisible(false);
-        new HotelDashboard().setVisible(true);
+       
     }//GEN-LAST:event_btnegisterActionPerformed
 
     /**
@@ -192,12 +251,12 @@ public class AddFood extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JTextField tfHotelContact;
-    private javax.swing.JTextField tfHotelContact1;
-    private javax.swing.JTextField tfHotelContact2;
-    private javax.swing.JTextField tfHotelId;
-    private javax.swing.JTextField tfHotelPassword;
-    private javax.swing.JTextField tfHotelname;
+    private javax.swing.JTextField tfFoodDiscount;
+    private javax.swing.JTextField tfFoodId;
+    private javax.swing.JTextField tfFoodPrice;
+    private javax.swing.JTextField tfFoodRate;
+    private javax.swing.JTextField tfFoodname;
+    private javax.swing.JTextField tfFoodtype;
     // End of variables declaration//GEN-END:variables
 }
 

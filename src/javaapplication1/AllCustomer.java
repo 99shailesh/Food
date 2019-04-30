@@ -5,23 +5,20 @@
  */
 package javaapplication1;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 /**
  *
  * @author 7R-0
  */
-public class HotelViewFood extends javax.swing.JFrame {
+public class AllCustomer extends javax.swing.JFrame {
 
     /**
-     * Creates new form HotelViewFood
+     * Creates new form AllCustomer
      */
     Connection con;
-    public HotelViewFood() {
+    public AllCustomer() {
         initComponents();
         con=Common.getdbconnect();
         updateTb();
@@ -58,7 +55,7 @@ public class HotelViewFood extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("Food Details");
+        jLabel3.setText("Customers");
 
         jButton1.setText("Go to Dash Board");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -73,11 +70,11 @@ public class HotelViewFood extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(72, 72, 72)
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 622, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 715, Short.MAX_VALUE)
                 .addGap(100, 100, 100))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 774, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 867, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
@@ -101,28 +98,25 @@ public class HotelViewFood extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-     //   con.close();
-     
-      try {
+        //   con.close();
+
+        try {
             // TODO add your handling code here:
             con.close();
         } catch (SQLException ex) {
             Logger.getLogger(HotelLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
-         setVisible(false);
+        setVisible(false);
         new HotelDashboard().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    
-    
-      void updateTb(){
+     void updateTb(){
        ResultSet resultSet;
 
         try {
                  
         Statement statement = con.createStatement();
-         String st=" SELECT food.Food_id,food.Food_name,food.foodType,food.Food_rating,food.Price,food.discount "
-           + "FROM food,hotel_food WHERE food.Food_id=hotel_food.foodid AND hotel_food.hotel='"+Common.hotelid+"';";
+         String st="SELECT CName,CAddress,Phone,CMail FROM customer; ";
         resultSet = statement.executeQuery(st);
         Common.setTable(jTable1, resultSet);
         
@@ -131,6 +125,7 @@ public class HotelViewFood extends javax.swing.JFrame {
         }
     
     }
+    
     /**
      * @param args the command line arguments
      */
@@ -148,20 +143,20 @@ public class HotelViewFood extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HotelViewFood.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AllCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HotelViewFood.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AllCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HotelViewFood.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AllCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HotelViewFood.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AllCustomer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HotelViewFood().setVisible(true);
+                new AllCustomer().setVisible(true);
             }
         });
     }

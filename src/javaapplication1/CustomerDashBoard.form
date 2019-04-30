@@ -23,7 +23,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="btnLogout" alignment="0" max="32767" attributes="0"/>
@@ -31,6 +31,7 @@
                   <Component id="lwelcomeMsg" alignment="1" pref="380" max="32767" attributes="0"/>
                   <Component id="btnProfile" alignment="0" max="32767" attributes="0"/>
                   <Component id="btnViewStaff" alignment="1" max="32767" attributes="0"/>
+                  <Component id="btnViewStaff1" alignment="0" max="32767" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -45,11 +46,13 @@
               <Component id="btnProfile" min="-2" pref="41" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btnViewFood" min="-2" pref="42" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
-              <Component id="btnViewStaff" min="-2" pref="42" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Component id="btnViewStaff1" min="-2" pref="42" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="btnViewStaff" min="-2" pref="42" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="16" max="-2" attributes="0"/>
               <Component id="btnLogout" min="-2" pref="42" max="-2" attributes="0"/>
-              <EmptySpace max="32767" attributes="0"/>
+              <EmptySpace pref="71" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -94,6 +97,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnViewFoodActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnViewStaff1">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="View Hotels"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnViewStaff1ActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

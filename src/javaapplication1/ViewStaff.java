@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package javaapplication1;
-
+import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author 7R-0
@@ -14,8 +16,12 @@ public class ViewStaff extends javax.swing.JFrame {
     /**
      * Creates new form ViewStaff
      */
+    
+    Connection con;
     public ViewStaff() {
         initComponents();
+        con=Common.getdbconnect();
+        updateTb();
     }
 
     /**
@@ -64,11 +70,11 @@ public class ViewStaff extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(72, 72, 72)
-                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 228, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 699, Short.MAX_VALUE)
                 .addGap(100, 100, 100))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 851, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
@@ -90,8 +96,32 @@ public class ViewStaff extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    void updateTb(){
+       ResultSet resultSet;
+
+        try {
+                 
+        Statement statement = con.createStatement();
+     
+        resultSet = statement.executeQuery("SELECT * FROM staff WHERE Hotel_Work='"+Common.hotelid+"';");
+        Common.setTable(jTable1, resultSet);
+        
+        } catch (SQLException ex) {
+            Logger.getLogger(HotelLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    }
+    
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        
+         try {
+            // TODO add your handling code here:
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(HotelLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
          setVisible(false);
         new HotelDashboard().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed

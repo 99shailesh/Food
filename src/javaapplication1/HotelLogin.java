@@ -135,7 +135,12 @@ public class HotelLogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegisterActionPerformed
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(HotelLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
         setVisible(false);
         new HotelRegistration().setVisible(true);
       
@@ -147,17 +152,23 @@ public class HotelLogin extends javax.swing.JFrame {
         String password=etHotelPassword.getText().toString();
         String realpasswrd="";
         ResultSet resultSet;
-        
+
         try {
                  
         Statement statement = con.createStatement();
-        System.out.println("Reading  records...");
-        resultSet = statement.executeQuery("SELECT * FROM hotel WHERE registration_number="+hotelid);
-        realpasswrd=resultSet.getString("hotel_password");
-                  
+    
+        resultSet = statement.executeQuery("SELECT * FROM hotel WHERE registration_number='"+hotelid+"';");
+        if(resultSet.next())
+        {  
+            resultSet.first();
+            realpasswrd=resultSet.getString("hotel_password");
+        }
+        else{   errormsg.setText("Wrong Password or ID");
+                }          
         if(realpasswrd.equals(password)){
             Common.hotelid=ethotelId.getText().toString();
             Common.hotelname=resultSet.getString("hotel_name").toString();
+            con.close();
             setVisible(false);
             new HotelDashboard().setVisible(true);
         }    
@@ -166,12 +177,18 @@ public class HotelLogin extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(HotelLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
-           
+          
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnCustomerLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerLoginActionPerformed
         // TODO add your handling code here:
-        
+      
+         try {
+            // TODO add your handling code here:
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(HotelLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
         setVisible(false);
         new CustomerLogin().setVisible(true);
     }//GEN-LAST:event_btnCustomerLoginActionPerformed

@@ -5,6 +5,13 @@
  */
 package javaapplication1;
 
+import java.sql.*;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author 7R-0
@@ -14,8 +21,11 @@ public class HotelRegistration extends javax.swing.JFrame {
     /**
      * Creates new form HotelRegistration
      */
+    
+    Connection con;
     public HotelRegistration() {
         initComponents();
+          con=Common.getdbconnect();
     }
 
     /**
@@ -27,8 +37,6 @@ public class HotelRegistration extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         tfHotelId = new javax.swing.JTextField();
@@ -48,10 +56,7 @@ public class HotelRegistration extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         taHotelAddress = new javax.swing.JTextArea();
         btnegister = new javax.swing.JButton();
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -86,20 +91,28 @@ public class HotelRegistration extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Login here");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnegister, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnegister, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(tfHotelId, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -159,7 +172,9 @@ public class HotelRegistration extends javax.swing.JFrame {
                     .addComponent(tfHotelMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnegister, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
@@ -167,9 +182,72 @@ public class HotelRegistration extends javax.swing.JFrame {
 
     private void btnegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnegisterActionPerformed
         // TODO add your handling code here:
-         setVisible(false);
-        new HotelLogin().setVisible(true);
+    float hRating=0;
+ 
+    String hContact=tfHotelContact.getText().toString();
+    if(!tfHotelRating.getText().toString().isEmpty())   
+    hRating=Float.parseFloat(tfHotelRating.getText().toString());
+    
+    String hId= tfHotelId.getText().toString();
+    String hMail= tfHotelMail.getText().toString();
+    String hPassword= tfHotelPassword.getText().toString();
+    
+    String hType= tfHotelType.getText().toString();
+    String hName= tfHotelname.getText().toString();
+    String hAddress= taHotelAddress.getText().toString();
+        
+
+        try {
+        if(!(hId.isEmpty()||hMail.isEmpty()||hPassword.isEmpty()||hType.isEmpty()||hName.isEmpty()||hAddress.isEmpty()||hContact.isEmpty()||hRating==0))
+        {         
+            PreparedStatement stmt=con.prepareStatement("insert into hotel values(?,?,?,?,?,?,?,?)");  
+            stmt.setString(1,hId);
+            stmt.setString(2,hName);
+            stmt.setString(3,hPassword);
+            stmt.setString(4,hAddress);
+            stmt.setString(7,hType);
+            stmt.setString(8,hMail);
+            stmt.setString(5,hContact);
+            stmt.setFloat(6,hRating);
+            int re=stmt.executeUpdate();  
+            if(re==1)
+            {    JOptionPane.showMessageDialog(null, "Hotel Registration Successfully Done!","Registratoin", JOptionPane.INFORMATION_MESSAGE);
+              con.close();    
+              setVisible(false);
+                new HotelLogin().setVisible(true);
+            }
+            else
+            {
+            JOptionPane.showMessageDialog(null, "Please try again..","Registratoin", JOptionPane.INFORMATION_MESSAGE);
+
+            }
+        }
+        else{
+        JOptionPane.showMessageDialog(null, "Please fill all details","Registratoin", JOptionPane.INFORMATION_MESSAGE);
+                }
+        } catch (SQLException ex) {
+            Logger.getLogger(HotelLogin.class.getName()).log(Level.SEVERE, null, ex);
+                  if(ex.getErrorCode() == 1062 ){
+        //duplicate primary key  
+        JOptionPane.showMessageDialog(null, "Hotel with "+hId+" id exist.\nEnter other id","Staff Registratoin", JOptionPane.INFORMATION_MESSAGE);
+
+             }
+             
+
+        }
     }//GEN-LAST:event_btnegisterActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            // TODO add your handling code here:
+
+            con.close();
+               setVisible(false);
+                new HotelLogin().setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(HotelRegistration.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -208,6 +286,7 @@ public class HotelRegistration extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnegister;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -217,9 +296,7 @@ public class HotelRegistration extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea taHotelAddress;
     private javax.swing.JTextField tfHotelContact;
     private javax.swing.JTextField tfHotelId;

@@ -16,6 +16,7 @@ public class CustomerDashBoard extends javax.swing.JFrame {
      */
     public CustomerDashBoard() {
         initComponents();
+        lwelcomeMsg.setText("Hello "+Common.customername);
     }
 
     /**
@@ -32,6 +33,7 @@ public class CustomerDashBoard extends javax.swing.JFrame {
         btnProfile = new javax.swing.JButton();
         btnViewStaff = new javax.swing.JButton();
         btnViewFood = new javax.swing.JButton();
+        btnViewStaff1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,6 +69,13 @@ public class CustomerDashBoard extends javax.swing.JFrame {
             }
         });
 
+        btnViewStaff1.setText("View Hotels");
+        btnViewStaff1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnViewStaff1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -78,7 +87,8 @@ public class CustomerDashBoard extends javax.swing.JFrame {
                     .addComponent(btnViewFood, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(lwelcomeMsg, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
                     .addComponent(btnProfile, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnViewStaff, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnViewStaff, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnViewStaff1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -90,11 +100,13 @@ public class CustomerDashBoard extends javax.swing.JFrame {
                 .addComponent(btnProfile, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnViewFood, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(11, 11, 11)
-                .addComponent(btnViewStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnViewStaff1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnViewStaff, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(16, 16, 16)
                 .addComponent(btnLogout, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         pack();
@@ -123,6 +135,12 @@ public class CustomerDashBoard extends javax.swing.JFrame {
            setVisible(false);
         new CustomerLogin().setVisible(true);
     }//GEN-LAST:event_btnLogoutActionPerformed
+
+    private void btnViewStaff1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewStaff1ActionPerformed
+        // TODO add your handling code here:
+                   setVisible(false);
+        new AllHotel().setVisible(true);
+    }//GEN-LAST:event_btnViewStaff1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -164,6 +182,7 @@ public class CustomerDashBoard extends javax.swing.JFrame {
     private javax.swing.JButton btnProfile;
     private javax.swing.JButton btnViewFood;
     private javax.swing.JButton btnViewStaff;
+    private javax.swing.JButton btnViewStaff1;
     private javax.swing.JLabel lwelcomeMsg;
     // End of variables declaration//GEN-END:variables
 }
