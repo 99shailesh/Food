@@ -36,26 +36,7 @@ public class Common {
       System.out.println("Opened database successfully");
       return c;
     }*/
-    
-        public static Connection getdbconnect(){
-     Connection c = null;
-      try {
-         Class.forName("com.mysql.jdbc.Driver");
-       //  System.out.println("Driver Register");
-         c = DriverManager
-            .getConnection("jdbc:mysql://localhost:3306/fooddb",
-            "root", "");
-       //  System.out.println("Connection done");
-      } catch (Exception e) {
-         e.printStackTrace();
-         System.err.println(e.getClass().getName()+": "+e.getMessage());
-         System.exit(0);
-         return c;
-      }
-      //System.out.println("Opened database successfully");
-      return c;
-    }
-        
+
         public static void setTable(JTable jt,ResultSet rs){
     
 
@@ -73,6 +54,7 @@ public class Common {
         }
         }
 }
+
 
 
 
