@@ -19,7 +19,7 @@ public class Common {
     public static String hotelname;
     public static String customername;
     public static String customerphone;
-   /* 
+   
     public static Connection getdbconnect(){
      Connection c = null;
       try {
@@ -35,7 +35,7 @@ public class Common {
       }
       System.out.println("Opened database successfully");
       return c;
-    }*/
+    }
 
         public static void setTable(JTable jt,ResultSet rs){
     
@@ -54,6 +54,7 @@ public class Common {
         }
         }
 }
+
 
 
 
